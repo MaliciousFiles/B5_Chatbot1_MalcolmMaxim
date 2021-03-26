@@ -4,12 +4,11 @@ import sys
 
 from src.response_parser import ResponseParser
 
-
 __author__ = "Maxim Rebguns and Malcolm Roalson"
 __copyright__ = "Copyright 2020, the creators of Ogekron"
 __credits__ = ["Gunnar Z."]
 
-__license__ = "" # To be determined
+__license__ = ""  # To be determined
 __version__ = "0.0.1"
 __status__ = "Development"
 
@@ -34,7 +33,8 @@ ART = """
 |          ^^----^^    "^--v'                               '-'   '-'       |
 -----------------------------------------------------------------------------
 """
-WELCOME_MESSAGE = """\nHello, my name is Ogrekron. I have traveled far and wide, all across Aquara, fought monsters and dragons, and concocted potions of great power! What are you interested in, commoner?"""
+WELCOME_MESSAGE = """\nHello, my name is Ogrekron. I have traveled far and wide, all across Aquara. I've fought monsters and dragons, and concocted potions of great power! What are you interested in, commoner?"""
+
 
 def slow_print(text, skip_whitespace=False, end="\n"):
     for c in text:
@@ -45,6 +45,7 @@ def slow_print(text, skip_whitespace=False, end="\n"):
             continue
         sleep(0.05)
     print(end=end)
+
 
 def main(skip_intro=False):
     if not skip_intro:
@@ -57,19 +58,20 @@ def main(skip_intro=False):
             )
 
         slow_print(WELCOME_MESSAGE)
-    
+
     response_parser = ResponseParser("src/responses.json")
     # Main loop
     while True:
         # The user input is first, as the original prompt
         # is printed above.
-        user_input = input("(type q to quit) ").strip()
+        user_input = input("'\033[90m'(type q to quit)'\033[0m' ").strip()
 
         if user_input.lower() == "q":
             break
-        
+
         response = response_parser.get_response(user_input)
         slow_print(response)
+
 
 if __name__ == "__main__":
     main()

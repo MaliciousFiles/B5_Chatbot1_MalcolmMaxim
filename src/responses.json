@@ -1,82 +1,140 @@
 {
-  "version": 1,
-  "data": [
-    {
-        "value": "My name is Ogekron.",
-        "tokens": {
-            "name": {
-                "weight": 7
-            },
-            "call": {
-                "weight": 3
-            }
-        }
-    },
-    {
-      "value": "Did I ever tell you about that time I fought a dragon?",
-      "tokens": {
-        "backstory": {
-          "weight": 2,
-          "after": ["your"]
-        },
-        "background": {
-          "weight": 2,
-          "after": ["your"]
-        },
-        "dragon": {
-          "weight": 5
-        },
-        "adventure": {
-          "weight": 3
-        }
-      },
-      "thread": {
-            "triggers": [
-                "no",
-                "continue",
-                "tell",
-                "explain"
+    "version": 1,
+    "data": [
+        {
+            "value": [
+                "My name is Ogekron.",
+                "Please call me Ogekron.",
+                "I am the great Ogekron.",
+                "I am called Ogekron, a name that represents might and glory.",
+                "Ogekron is my name."
             ],
-            "steps":{
-                "step1": [
-                    "Well, I was a young man back then, prone to adventuring.",
-                    "I was just a lad, looking for a way to make my name.",
-                    "Quite some time ago, I was looking for some honor and glory."
+            "tokens": {
+                "name": {
+                    "weight": 7
+                },
+                "call": {
+                    "weight": 3
+                }
+            }
+        },
+        {
+            "value": [
+                "I am 67 years old.",
+                "I have done many great things. Age should not be a defining factor.",
+                "I am a wise old man.",
+                "I am less than a century old."
+            ],
+            "tokens": {
+                "age": {
+                    "weight": 7
+                },
+                "old": {
+                    "weight": 5
+                },
+                "young": {
+                    "weight": 4
+                }
+            }
+        },
+        {
+            "value": [
+                "I live in a wizard tower, away from civilization."
+            ],
+            "tokens": {
+                "live": {
+                    "weight": 7
+                },
+                "house": {
+                    "weight": 3
+                },
+                "home": {
+                    "weight": 3
+                }
+            }
+        },
+        {
+            "value": [
+                "Did I ever tell you about that time I fought a dragon?",
+                "Have you heard the epic tale of my dragon hunting?",
+                "Have you been told of the escapades of the powerful Ogrekron, and when I slew a dragon?"
+            ],
+            "tokens": {
+                "backstory": {
+                    "weight": 2,
+                    "after": [
+                        "your"
+                    ]
+                },
+                "background": {
+                    "weight": 2,
+                    "after": [
+                        "your"
+                    ]
+                },
+                "dragon": {
+                    "weight": 5
+                },
+                "adventure": {
+                    "weight": 3
+                },
+                "adventuring": {
+                    "weight": 3
+                }
+            },
+            "thread": {
+                "triggers": [
+                    "no",
+                    "continue",
+                    "tell",
+                    "explain",
+                    "go"
                 ],
-                "step2": [
-                    "I had just heard of a dragon that had been terrorizing some villages near my region.",
-                    "I asked around a bit, and heard about a dragon lair near where I was.",
-                    "I came across the ruins of a small village, not too far from where I lived. It bore the telling marks of a dragon attack."
-                ],
-                "step3": [
-                    "I did some investigating and determined that it was likely a Young Adult Red Dragon.",
-                    "I listened to tales from some survivors, and discerned that it was a Young Adult Red Dragon",
-                    "Now, I don't consider myself a sleuth, but I like to think that I did some pretty good investigative work back then. I at least managed to find out that it was a Young Adult Red Dragon I was hunting."
-                ],
-                "step4": [
-                    "I gathered up my very best items and set off for the lair.",
-                    "I stocked up on supplies, and began the arduous journey to the dragon's lair.",
-                    "After I prepared myself, I traveled from town to town, trailing whispers of where the dragon went, growing ever closer to my destination... it's lair."
-                ],
-                "step5": [
-                    "When I finally arrived at the lair of the dragon, I fought a long and hard battle, comming within a sliver of death.",
-                    "I finally came upon the lair, and fought the dragon where it stood. I very nearly died, but that fight changed my life forever.",
-                    "Some may call me foolish, attacking a dragon in it's own lair, however I knew that I would do this or die trying. We fought a long battle, and I can't help myself but respect the dragon. Finally however, I emerged victorious."
-                ],
-                "step6": [
-                    "And so, I finally returned famous throughout the land, and quite a bit richer to boot. The king himself gave me a medal, but I wasn't done there. I had gained an apetite for adventuring and wasn't about to lose it.",
-                    "Eventually, I returned to more civilized lands, spreading word of the dragon's death along my way. I came back to a grateful kingdom, and many merchants eager to swindle away my new wealth. After receiving my medal however, I would not stop adventuring... no not at all.",
-                    "When I returned to civilized lands, I finally got to claim my glory, and money, and even received a medal from the king. However, even with my fame, glory and riches I was not done with the life of an adventurer yet."
+                "steps": [
+                    [
+                        "Well, I was a young man back then, prone to adventuring.",
+                        "I was just a lad, looking for a way to make my name.",
+                        "Quite some time ago, I was looking for some honor and glory."
+                    ],
+                    [
+                        "I had just heard of a dragon that had been terrorizing some villages near my region.",
+                        "I asked around a bit, and heard about a dragon lair near where I was.",
+                        "I came across the ruins of a small village, not too far from where I lived. It bore the telling marks of a dragon attack."
+                    ],
+                    [
+                        "I did some investigating and determined that it was likely a Young Adult Red Dragon.",
+                        "I listened to tales from some survivors, and discerned that it was a Young Adult Red Dragon",
+                        "Now, I don't consider myself a sleuth, but I like to think that I did some pretty good investigative work back then. I at least managed to find out that it was a Young Adult Red Dragon I was hunting."
+                    ],
+                    [
+                        "I gathered up my very best items and set off for the lair.",
+                        "I stocked up on supplies, and began the arduous journey to the dragon's lair.",
+                        "After I prepared myself, I traveled from town to town, trailing whispers of where the dragon went, growing ever closer to my destination... it's lair."
+                    ],
+                    [
+                        "When I finally arrived at the lair of the dragon, I fought a long and hard battle, comming within a sliver of death.",
+                        "I finally came upon the lair, and fought the dragon where it stood. I very nearly died, but that fight changed my life forever.",
+                        "Some may call me foolish, attacking a dragon in it's own lair, however I knew that I would do this or die trying. We fought a long battle, and I can't help myself but respect the dragon. Finally however, I emerged victorious."
+                    ],
+                    [
+                        "And so, I finally returned famous throughout the land, and quite a bit richer to boot. The king himself gave me a medal, but I wasn't done there. I had gained an apetite for adventuring and wasn't about to lose it.",
+                        "Eventually, I returned to more civilized lands, spreading word of the dragon's death along my way. I came back to a grateful kingdom, and many merchants eager to swindle away my new wealth. After receiving my medal however, I would not stop adventuring... no not at all.",
+                        "When I returned to civilized lands, I finally got to claim my glory, and money, and even received a medal from the king. However, even with my fame, glory and riches I was not done with the life of an adventurer yet."
+                    ],
+                    [
+                        "And that's the end of my story! Ah, the golden age of youth.",
+                        "And so concludes my epic tale. It's always nice reminisce about my golden years.",
+                        "Recounting that tale is almost enough to make me wish I were still adventuring, but my old back wouldn't put up with me if I tried that."
+                    ]
                 ]
             }
         }
-    }
-  ],
-  "generics": [
-      "Hmm... I can't really understand. It's been a long time since I last spoke to a commoner.",
-      "What did you say? I didn't quite catch that.",
-      "I'm an old man now, you're going to have to speak up.",
-      "I don't understand. I don't even remember the last time I spoke to another human.",
-      "I didn't catch that. Kids these days, speaking in their own strange dialects."
-  ]
+    ],
+    "generics": [
+        "Hmm... I can't really understand. It's been a long time since I last spoke to a commoner.",
+        "What did you say? I didn't quite catch that.",
+        "I'm an old man now, you're going to have to speak up.",
+        "I don't understand. I don't even remember the last time I spoke to another human.",
+        "I didn't catch that. Kids these days, speaking in their own strange dialects."
+    ]
 }

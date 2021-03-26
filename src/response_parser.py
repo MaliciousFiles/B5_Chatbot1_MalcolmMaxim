@@ -8,7 +8,14 @@ from collections import namedtuple
 from src.tokenizer import tokenize
 
 LatestResponse = namedtuple("LatestResponse", ["response", "weight"])
-MAX_STACK_SIZE = 10
+
+CONTINUE_THREAD_TOKENS = ["continue", "more"]
+END_THREAD_TOKENS = ["stop", "care"]
+END_THREAD_MESSAGES = [
+    "Very well then, we may talk of some other topic.",
+    "If you wish, we may speak of something else.",
+    "Ok then, what is your next question?"
+]
 
 
 class ResponseParser:
@@ -30,7 +37,8 @@ class ResponseParser:
             self.data,
             self.generics
 		) = self._parse_responses()
-        self.stack = []
+        self.thread = []
+        self.last_response = None
 
     def get_response(self, user_input):
         """Given `user_input`, this method tokenizes it, and
@@ -43,27 +51,50 @@ class ResponseParser:
         if not self.data:
             raise ValueError("Data must have at least one item")
 
-        if self.stack and self.stack[0][0].response and self.stack[0][0].response["thread"]:
-            self._run_thread(self.stack[0][0], tokens)
-        else:
-            for response in self.data:
-                response_weight = self._get_weight(response, tokens)
+        response = self._run_thread(tokens)
+        if response:
+            return response
+    
+        # Normal handling
+        for response in self.data:
+            response_weight = self._get_weight(response, tokens)
 
-                if response_weight == latest_response.weight:
-                    if random.random() > 0.5:
-                        latest_response = LatestResponse(response, response_weight)
-                elif response_weight > latest_response.weight:
+            if response_weight == latest_response.weight:
+                if random.random() > 0.5:
                     latest_response = LatestResponse(response, response_weight)
+            elif response_weight > latest_response.weight:
+                latest_response = LatestResponse(response, response_weight)
 
-        self._update_stack(latest_response, tokens)
+        self.last_response = latest_response
         if latest_response.weight == 0:
             return random.choice(self.generics)
         
-        return latest_response.response["value"]
+        return random.choice(latest_response.response["value"])
 
     # TODO: implement 'thread'
-    def _run_thread(self, response, tokens):
-        pass
+    def _run_thread(self, tokens):
+        # Continues a conversation thread
+        if self.last_response and self.last_response.response and "thread" in self.last_response.response.keys():
+            if not self.thread:
+                self.thread = self.last_response.response["thread"]["steps"].copy()
+                
+                for token in tokens:
+                    if token in self.last_response.response["thread"]["triggers"]:
+                        if len(self.thread) == 1:
+                            self.last_response = None
+
+                        return random.choice(self.thread.pop(0))
+            else:
+                for token in tokens:
+                    if token in CONTINUE_THREAD_TOKENS:
+                        if len(self.thread) == 1:
+                            self.last_response = None
+
+                        return random.choice(self.thread.pop(0))
+                    elif token in END_THREAD_TOKENS:
+                        self.thread = []
+                        self.last_response = None
+                        return random.choice(END_THREAD_MESSAGES)
 
     # TODO: implement 'after'
     def _get_weight(self, response, tokens):
@@ -76,13 +107,7 @@ class ResponseParser:
                 weight += response['tokens'][token]['weight']
 
         return weight
-    
-    def _update_stack(self, response, tokens):
-        # TODO: implement stack
-        self.stack.insert(0, (response, tokens))
-        if len(self.stack) > MAX_STACK_SIZE:
-            self.stack.pop(-1)
-                
+
     def _parse_file(self):
         with self.filename.open() as responses_file:
             return json.load(responses_file)

@@ -2,4 +2,7 @@
 from src.main import main
 
 # Skip intro... for now
-main(skip_intro=True)
+try:
+    main(skip_intro=True)
+except (KeyboardInterrupt, EOFError):
+    print("\nThank you for talking to me!")
