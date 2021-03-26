@@ -5,19 +5,25 @@ from nltk.tokenize import word_tokenize
 from nltk.data import path
 from nltk.corpus import wordnet
 
+from spellchecker import SpellChecker
+
 from pathlib import Path
 
 path.append(str(Path("~/B5Chatbot1MalcolmMaxim/nltk_data").expanduser()))
 
 lemmatizer = WordNetLemmatizer()
+spellcheck = SpellChecker()
 
 
 def tokenize(user_input):
-    tokens = [t.lower() for t in word_tokenize(user_input)]
-    tokens = get_synonyms_for_tokens(tokens)
-    lemmatized = [lemmatizer.lemmatize(t) for t in tokens]
+    tokens = [t.lower() for t in word_tokenize(user_input)] # split into tokens
+    # spell check
+    for i in range(len(tokens)):
+        tokens += spellcheck.candidates(tokens.pop(i))
+    print(tokens)
+    tokens = get_synonyms_for_tokens(tokens) # add synonyms
+    lemmatized = [lemmatizer.lemmatize(t) for t in tokens] # lemmatize
     return lemmatized
-
 
 def get_synonyms(token):
     result = {token}

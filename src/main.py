@@ -64,7 +64,7 @@ def main(skip_intro=False):
     while True:
         # The user input is first, as the original prompt
         # is printed above.
-        user_input = input("'\033[90m'(type q to quit)'\033[0m' ").strip()
+        user_input = input("\033[94m(type q to quit)\033[0m ").strip()
 
         if user_input.lower() == "q":
             break

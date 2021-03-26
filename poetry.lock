@@ -38,6 +38,14 @@ twitter = ["twython"]
 
 [[package]]
 category = "main"
+description = "Pure python spell checker based on work by Peter Norvig"
+name = "pyspellchecker"
+optional = false
+python-versions = "*"
+version = "0.6.1"
+
+[[package]]
+category = "main"
 description = "Alternative regular expression module, to replace re."
 name = "regex"
 optional = false
@@ -58,7 +66,7 @@ notebook = ["ipywidgets (>=6)"]
 telegram = ["requests"]
 
 [metadata]
-content-hash = "2f9e5594e170698a0bef40317e9baaa954e4cc8d1b96c87387d57ee17888b946"
+content-hash = "bd26909dc96a246ffdb1677b7b398694d43645c9035d0847f7a4e9c2cedce674"
 python-versions = "^3.8"
 
 [metadata.files]
@@ -72,6 +80,10 @@ joblib = [
 ]
 nltk = [
     {file = "nltk-3.5.zip", hash = "sha256:845365449cd8c5f9731f7cb9f8bd6fd0767553b9d53af9eb1b3abf7700936b35"},
+]
+pyspellchecker = [
+    {file = "pyspellchecker-0.6.1-py3-none-any.whl", hash = "sha256:ce00a38a0073afd29b1e185090a3e9be8bd3832b92cb64c5c0e9ae9e8606dc47"},
+    {file = "pyspellchecker-0.6.1.tar.gz", hash = "sha256:e5e2c8cf40983ab464cfe40a0887eaac0876636adb55b092a42b077d42b53d5b"},
 ]
 regex = [
     {file = "regex-2021.3.17-cp36-cp36m-macosx_10_9_x86_64.whl", hash = "sha256:b97ec5d299c10d96617cc851b2e0f81ba5d9d6248413cd374ef7f3a8871ee4a6"},
