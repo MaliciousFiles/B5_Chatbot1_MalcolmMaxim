@@ -20,7 +20,6 @@ def tokenize(user_input):
     # spell check
     for i in range(len(tokens)):
         tokens += spellcheck.candidates(tokens.pop(i))
-    print(tokens)
     tokens = get_synonyms_for_tokens(tokens) # add synonyms
     lemmatized = [lemmatizer.lemmatize(t) for t in tokens] # lemmatize
     return lemmatized
