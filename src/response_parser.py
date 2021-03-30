@@ -59,32 +59,46 @@ class ResponseParser:
         for response in self.data:
             response_weight = self._get_weight(response, tokens)
 
+            # Check whether the response should become the most weighted or not, if they are tied it's a random chance
             if response_weight == latest_response.weight:
                 if random.random() > 0.5:
                     latest_response = LatestResponse(response, response_weight)
             elif response_weight > latest_response.weight:
                 latest_response = LatestResponse(response, response_weight)
 
+        # Set the response to a generic one if nothing matched, generic meaning something like "I don't understand"
         self.last_response = latest_response
         if latest_response.weight == 0:
             return random.choice(self.generics)
         
         return random.choice(latest_response.response["value"])
 
-    # TODO: implement 'thread'
     def _run_thread(self, tokens):
         # Continues a conversation thread
-        if self.last_response and self.last_response.response and "thread" in self.last_response.response.keys():
+        if (
+            self.last_response
+            and self.last_response.response
+            and "thread" in self.last_response.response.keys()
+        ):
+            # If there is not already a running thread, check for triggers then activate one, otherwise continue the current thread
             if not self.thread:
                 self.thread = self.last_response.response["thread"]["steps"].copy()
                 
+                # Check for if the thread is triggered, then activate if it is
                 for token in tokens:
                     if token in self.last_response.response["thread"]["triggers"]:
                         if len(self.thread) == 1:
                             self.last_response = None
 
                         return random.choice(self.thread.pop(0))
+            
+            # Checks whether to continue the thread or end it
             else:
+                if tokens == []:
+                    if len(self.thread) == 1:
+                        self.last_response = None
+
+                    return random.choice(self.thread.pop(0))
                 for token in tokens:
                     if token in CONTINUE_THREAD_TOKENS:
                         if len(self.thread) == 1:
@@ -95,8 +109,9 @@ class ResponseParser:
                         self.thread = []
                         self.last_response = None
                         return random.choice(END_THREAD_MESSAGES)
+                
+                self.thread = []
 
-    # TODO: implement 'after'
     def _get_weight(self, response, tokens):
         """Gets the weight of `response`, and given the tokens in
         user input, returns a weight total of all
@@ -104,6 +119,14 @@ class ResponseParser:
         weight = 0
         for token in tokens:
             if token in response["tokens"].keys():
+                if "after" in response["tokens"][token].keys():
+                    # Checks if the 'after' requirements are met for the token before adding the weight. Makes sure that `after` is in tokens before the current token, for every 'after' that the token has
+                    if not all(
+                        [
+                            after in tokens[:tokens.index(token)] for after in response["tokens"][token]["after"]
+                        ]
+                    ):
+                        continue
                 weight += response['tokens'][token]['weight']
 
         return weight

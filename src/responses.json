@@ -3,6 +3,39 @@
     "data": [
         {
             "value": [
+                "The weather has been nice for me recently, things have taken a turn for the sunny!",
+                "For the past few weeks, things have been nice and sunny so I've been trying to get outside more.",
+                "The weather is quite pleasent up here, more so than down by the ocean."
+            ],
+            "tokens": {
+                "weather": {
+                    "weight": 7
+                }
+            }
+        },
+        {
+            "value": [
+                "I hail from Clistead originally.",
+                "I actually come from a small town in the countryside by a name of Clistead.",
+                "I have traveled many places, but am originally from Clistead. I haven't been there in many years though...",
+                "I come from Clistead, and should go back there sometime to relive some memories.",
+                "It's not well known, but I don't come from a big city, no, I was originally from the small town of Clistead."
+            ],
+            "tokens": {
+                "from": {
+                    "weight": 5,
+                    "after": ["come"]
+                },
+                "past": {
+                    "weight": 3
+                },
+                "origin": {
+                    "weight": 4
+                }
+            }
+        },
+        {
+            "value": [
                 "My name is Ogekron.",
                 "Please call me Ogekron.",
                 "I am the great Ogekron.",
@@ -20,7 +53,7 @@
         },
         {
             "value": [
-                "I am 67 years old.",
+                "I am 76 years old.",
                 "I have done many great things. Age should not be a defining factor.",
                 "I am a wise old man.",
                 "I am less than a century old."
@@ -39,11 +72,15 @@
         },
         {
             "value": [
-                "I live in a wizard tower, away from civilization."
+                "I live in a wizard tower, away from civilization.",
+                "I used to live in Clistead, but I have since moved to a wizard tower.",
+                "I live away from big cities to conduct my magic, in my wizard tower.",
+                "I'm so far away from civilization, but perhaps I should come down and interact more.",
+                "I used to live wherever the winds took me, but I've settled down to conduct studies in my wizard tower now."
             ],
             "tokens": {
                 "live": {
-                    "weight": 7
+                    "weight": 4
                 },
                 "house": {
                     "weight": 3
@@ -55,19 +92,62 @@
         },
         {
             "value": [
+                "My body grows weak, but my mind is still strong. Ask me anything you want!",
+                "I am doing good today, the aches seem less than usual",
+                "Today is a good day, for I have a visitor for the first time in many years!"
+            ],
+            "tokens": {
+                "are": {
+                    "weight": 5,
+                    "after": [
+                        "how"
+                    ]
+                },
+                "you": {
+                    "weight": 6,
+                    "after": [
+                        "are"
+                    ]
+                },
+                "doing": {
+                    "weight": 7,
+                    "after": [
+                        "how"
+                    ]
+                },
+                "today": {
+                    "weight": 3
+                }
+            }
+        },
+        {
+            "value": [
+                "Hello there.",
+                "Hello unnamed commoner.",
+                "Hello! What lovely weather we have today.",
+                "Greetings!"
+            ],
+            "tokens": {
+                "hello": {
+                    "weight": 7
+                }
+            }
+        },
+        {
+            "value": [
                 "Did I ever tell you about that time I fought a dragon?",
                 "Have you heard the epic tale of my dragon hunting?",
                 "Have you been told of the escapades of the powerful Ogrekron, and when I slew a dragon?"
             ],
             "tokens": {
                 "backstory": {
-                    "weight": 2,
+                    "weight": 5,
                     "after": [
                         "your"
                     ]
                 },
                 "background": {
-                    "weight": 2,
+                    "weight": 5,
                     "after": [
                         "your"
                     ]
